@@ -77,7 +77,7 @@ I built HouseHive to get hands-on experience with:
 
 ---
 
-### 🖼️ Uploads (ImageKit)
+### Uploads (ImageKit)
 
 | Method | Endpoint              | Description                   | Auth Required |
 |--------|-----------------------|-------------------------------|---------------|
