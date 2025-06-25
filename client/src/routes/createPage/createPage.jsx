@@ -1,5 +1,5 @@
 import './createPage.css';
-import Image from '../../components/image/Image';
+import IKImage from '../../components/image/Image';
 import useAuthStore from '../../../utils/authStore';
 import {useNavigate} from 'react-router';
 import { useEffect, useState } from 'react';
@@ -12,6 +12,11 @@ const CreatePage = () => {
 
   const [file, setFile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [previewImg, setPreviewImg] = useState({
+    url: "",
+    width: 0,
+    height: 0,
+  });
 
   useEffect(() => {
     if(!currentUser){
@@ -19,7 +24,19 @@ const CreatePage = () => {
     }
   },[navigate, currentUser]) 
 
-  const previewImgURL = file ? URL.createObjectURL(file) : null;
+  useEffect(() => {
+    if(file){ 
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+      setPreviewImg({
+        url: URL.createObjectURL(file),
+        width: img.width,
+        height: img.height,
+      });
+    }
+    }
+  }, [file]);
 
   return (
     <div className="createPage">
@@ -27,19 +44,19 @@ const CreatePage = () => {
         <h1>{isEditing ? "Design your pin" : "Create Pin"}</h1>
         <button>{isEditing ? "Done" : "Publish"}</button>
       </div>
-    {isEditing ? <Editor /> :(
+    {isEditing ? <Editor previewImg={previewImg} /> :(
       <div className="createBottom">
-        {previewImgURL ? 
+        {previewImg.url ? 
           <div className='preview'>
-            <img src={previewImgURL} alt='preview' />
+            <img src={previewImg.url} alt='preview' />
             <div className='editIcon' onClick={() => setIsEditing(true)}> 
-              <Image path="/general/edit.svg" alt=" " />
+              <IKImage path="/general/edit.svg" alt=" " />
             </div>  
           </div> 
         : 
         (<><label htmlFor="file" className="upload">
           <div className="uploadTitle">
-            <Image path="/general/upload.svg" alt="" />
+            <IKImage path="/general/upload.svg" alt="" />
             <span>Choose a file</span>
           </div>
           <div className="uploadInfo">
