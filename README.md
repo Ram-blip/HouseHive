@@ -85,4 +85,4 @@ I built HouseHive to get hands-on experience with:
 
 ---
 
-Let me know if you want to include environment variable setup or folder structure too!
+Let me know if you are interested and wanted to develop more. Currenlty, Stopped. Had an other Project idea. 
